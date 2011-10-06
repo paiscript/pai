@@ -1,0 +1,31 @@
+{
+	"charset": "utf-8",
+	"expose_pai": true,
+	"url": {
+		"path": null,
+		"paramName": "pai_page",
+		"pathStripRegexp": "([^a-zA-Z0-9.\\-_/])",
+		"rootElement": "index"
+	},
+	"content": {
+	},
+	"ajax": {
+		"useSourceFiles": false,
+		"framework": "prototype",
+		"require": false,
+		"loadingText": "laster",
+		"clickEventName": "click",
+		"resetScroll": true,
+		"endpoint": "pai/ajax.php"
+	},
+	
+	"plugins": { },
+	
+	"actions": {
+		"status": true
+	},
+	
+	"language": {
+		"status": false
+	}
+}
