@@ -1,0 +1,3 @@
+[submodule "lib/HashHistory"]
+	path = lib/HashHistory
+	url = git@github.com:tellnes/HashHistory.git
