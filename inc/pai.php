@@ -105,7 +105,7 @@ function pai_js_files() {
 	
 	$files = array();
 	
-	$files[] = PAI_FOLDER.'/js-src/HashHistory.js';
+	$files[] = PAI_FOLDER.'/lib/HashHistory/HashHistory.js';
 	$files[] = PAI_FOLDER.'/js-src/adapter.'.$conf['framework'].'.js';
 	$files[] = PAI_FOLDER.'/js-src/pai.js';
 
