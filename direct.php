@@ -1,7 +1,5 @@
 <?php // 26.06.11
 
-define('PAI_AJAX', false);
-
 require(dirname(__FILE__).DIRECTORY_SEPARATOR.'load.php');
 
 

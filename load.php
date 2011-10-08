@@ -2,8 +2,9 @@
 
 if (defined('PAI_VERSION')) { echo 'PAI Error: Multiple loadings load.php'; exit(); }
 
-define('PAI_VERSION', '2.0.0');
+define('PAI_VERSION', '2.0.1-pre');
 
+if (!defined('PAI_AJAX')) { define('PAI_AJAX', false); }
 
 if (!defined('PAI_FOLDER')) { define('PAI_FOLDER', 'pai'); }
 if (!defined('PAI_FOLDER_CONTENT')) { define('PAI_FOLDER_CONTENT', 'content'); }
