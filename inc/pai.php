@@ -19,7 +19,7 @@ function pai_content($name, $return = false, $div = true) {
 	}
 	
 	if (!$exclude) {
-		switch($conf['type']) {
+		switch(@$conf['type']) {
 		case 'pagevar':
 			$content = @pai_pageinfo($conf['name']);
 			break;
