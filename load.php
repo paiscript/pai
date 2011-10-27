@@ -35,10 +35,11 @@ if (!defined('PAI_PATH')) { define('PAI_PATH', pai_conf('url', 'path')); }
 $pai_plugins = array();
 foreach(pai_conf('plugins') AS $name => $conf) {
 	if (is_bool($conf)) {
-		$conf = array('status' => $conf);
+		$conf = array('disabled' => !$conf);
 	}
 
-	if (!isset($conf['status'])) { continue; }
+	if (isset($conf['status']) && !isset($conf['disabled'])) { $conf['disabled'] = !$conf['status']; }
+	if (@$conf['disabled']) { continue; }
 	
 	$path = PAI_FILEPATH_PLUGINS.$name.DIRECTORY_SEPARATOR;
 
