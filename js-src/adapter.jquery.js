@@ -66,7 +66,9 @@ if (!Function.prototype.bind) {
 			return jQuery['event']['trigger'](eventName, data, element);
 		},
 		"preventDefault": 	function(event) { event.preventDefault(); },
-		
+		"eventPrevented": 	function (event) { return event.isDefaultPrevented(); },
+
+
 		"serializeHash":	function(element) { var a = jQuery(element)['serializeArray'](), l=a.length, o = {}; for(var i=0; i<l; i++) { o[a[i].name] = a[i].value; } return o; },
 		"toQueryParams":	function(string) { var a = string.split('&'), l = a.length, o = { }, b; for(var i=0; i<l;i++) { b = a[i].split('=', 2); o[b[0]] = b[1]; } return 0; },
 	

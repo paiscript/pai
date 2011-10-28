@@ -117,8 +117,15 @@
 		addEvent: 		Event['on'],
 		fireEvent: 		Event['fire'],
 		preventDefault: 	function(event) { event.preventDefault(); },
-		
-		
+		eventPrevented: 	function (event) {
+			if (event.stopPropagation) {
+				return event.defaultPrevented;
+			} else {
+				return !event.returnValue;
+			}
+		},
+
+
 		serializeHash:	function(element) { return window['Form']['serialize'](element, {hash:true}); },
 		toQueryParams:	function(str) { return str.toQueryParams(); },
 	
