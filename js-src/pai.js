@@ -110,6 +110,8 @@
 		}
 		adpt['fireEvent'](doc, 'pai:' + eventName, args);
 	}
+
+	PAI['emit'] = emit;
 	
 	
 	/**
