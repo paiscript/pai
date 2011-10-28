@@ -126,7 +126,7 @@
 		},
 
 
-		serializeHash:	function(element) { return window['Form']['serialize'](element, {hash:true}); },
+		formSerialize:	function(element) { return window['Form']['serialize'](element, {hash:true}); },
 		toQueryParams:	function(str) { return str.toQueryParams(); },
 	
 	

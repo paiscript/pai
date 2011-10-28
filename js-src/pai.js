@@ -444,7 +444,7 @@
 		emit('submit', event, element);
 		if (adpt['eventPrevented'](event)) { return; }
 
-		data = adpt['serializeHash'](element);
+		data = adpt['formSerialize'](element);
 		
 		if (element.method === 'get') {
 			if (page.match('\\?')) {
