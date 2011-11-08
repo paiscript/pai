@@ -110,6 +110,8 @@
 		}
 		adpt['fireEvent'](doc, 'pai:' + eventName, args);
 	}
+
+	PAI['emit'] = emit;
 	
 	
 	/**
@@ -419,31 +421,32 @@
 
 	function onclick(event, element) {
 		var page = checkElement(element);
-		if (page === false) { 
-			return; 
-		}
+		if (!page && page !== '') { return; }
 
-		adpt['preventDefault'](event);
+		emit('click', event, element);
+		if (adpt['eventPrevented'](event)) { return; }
+
 		showPage(page);
+		adpt['preventDefault'](event);
 	}
 	
 	function onclick_stop(event, element) {
-		if (checkElement(element)) { 
-			adpt['preventDefault'](event);
-		}
+		var page = checkElement(element);
+		if (!page && page !== '') { return; }
+
+		adpt['preventDefault'](event);
 	}
 	
 	function onsubmit(event, element) {
 		var page, data, get;
 		
 		page = checkElement(element);
-		
-		if (!page) { 
-			return; 
-		}
-		adpt['preventDefault'](event);
-		
-		data = adpt['serializeHash'](element);
+		if (page === false) { return; }
+
+		emit('submit', event, element);
+		if (adpt['eventPrevented'](event)) { return; }
+
+		data = adpt['formSerialize'](element);
 		
 		if (element.method === 'get') {
 			if (page.match('\\?')) {
@@ -461,6 +464,7 @@
 		
 //		skipNextHHCb = true;
 		showPage(page, data);
+		adpt['preventDefault'](event);
 	}
 	
 	function hh_cb(page) {

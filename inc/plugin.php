@@ -57,3 +57,6 @@ function pai_apply_filters($tag, $value) {
 	return $value;
 }
 
+function pai_add_ajax_action($tag, $function, $priority = 10) {
+	pai_add_filter('ajax:' . $tag, $function, $priority);
+}
