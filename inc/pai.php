@@ -396,14 +396,14 @@ function pai_redirect($url, $time = 0, $external = false, $code = 302) {
 		}
 		else {
 			header("Location: $url", false, $code);
-		}
-		ob_end_clean();
-		?><!DOCTYPE html>
+			ob_end_clean();
+			?><!DOCTYPE html>
 <title>Moved</title>
 <meta http-equiv="Refresh" content="<?php echo $time; ?>; url=<?php echo $url; ?>" />
 <h1>Moved</h1>
 <p>This page has moved to <a href="<?php echo $url; ?>"><?php echo $url; ?></a>.</p>
 <?php
+		}
 		exit();
 	}
 }
