@@ -382,7 +382,6 @@ function pai_trigger_error($message, $level/* = E_USER_NOTICE*/, $tracelength = 
 
 function pai_redirect($url, $time = 0, $external = false, $code = 302) {
 	
-	$url = htmlspecialchars($url);
 	$time = (int) $time;
 	$code = (int) $code;
 	
