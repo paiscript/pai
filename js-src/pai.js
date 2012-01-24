@@ -467,6 +467,32 @@
     adpt['preventDefault'](event);
   }
 
+  (function() {
+    var timeout, oldpath;
+    PAI['redirect'] = function (url, time, external) {
+      if (timeout) {
+        win.clearTimeout(timeout);
+      }
+      oldpath = PAI['PATH'];
+      timeout = win.setTimeout(function () {
+        timeout = null;
+        if (oldpath !== PAI['PATH']) { return; }
+
+        if (!external) {
+          url = checkUrl(url);
+
+          if (url) {
+            showPage(url);
+            return;
+          }
+        }
+
+        loc.href = normalizeUrl(url);
+
+      }, time * 1000);
+    };
+  }());
+
   function hh_cb(page) {
     if (skipNextHHCb) {
       skipNextHHCb = false;
@@ -534,33 +560,6 @@
       }
     }
   }
-
-  (function() {
-    var timeout, oldpath;
-    PAI['redirect'] = function (url, time, external) {
-      if (timeout) {
-        win.clearTimeout(timeout);
-      }
-      oldpath = PAI['PATH'];
-      timeout = win.setTimeout(function () {
-        timeout = null;
-        if (oldpath !== PAI['PATH']) { return; }
-
-        if (!external) {
-          url = checkUrl(url);
-
-          if (url) {
-            showPage(url);
-            return;
-          }
-        }
-
-        loc.href = normalizeUrl(url);
-
-      }, time * 1000);
-    };
-  }());
-
 
   win['PAI']['_i'] = init;
 
