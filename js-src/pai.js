@@ -544,7 +544,7 @@
     adpt['addEvent'](doc, 'submit', 'form', onsubmit);
 
     page = String(hh());
-    if (page !== PAI['PAGE'] && loc.hash) {
+    if (page !== PAI['PAGE'] && loc.hash.substr(0, 2) === '#!') {
       showPage(page);
     }
 
