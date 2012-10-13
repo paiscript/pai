@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	
+	
+	<style type="text/css" media="screen">
+		.log {
+			float: left;
+			border: 1px solid #999;
+			margin-right: 1em;
+		}
+	</style>
+</head>
+
+<body>
+	
+	<a href="javascript:history.back();">Tilbake</a>
+	<a href="javascript:history.forward();">Fram</a>
+	
+	<p>
+		Current Page: <b id="current-page"></b>
+		<br>
+		Current Hash: <b id="current-hash"></b>
+	</p>
+	
+	<p>
+		<a href="#!a">A</a>
+		<a href="#!b">B</a>
+		<a href="#!c">C</a>
+	</p>
+
+	<br>
+	<b>Event log</b><br>
+	<pre id="log_default" class="log"><b>Default</b></pre>
+	<pre id="log_all" class="log"><b>All</b></pre>
+	<pre id="log_push" class="log"><b>Push</b></pre>
+	<pre id="log_pagepush" class="log"><b>PagePush</b></pre>
+	<pre id="log_hashpush" class="log"><b>HashPush</b></pre>
+	<pre id="log_change" class="log"><b>Change</b></pre>
+	<pre id="log_pagechange" class="log"><b>PageChange</b></pre>
+	<pre id="log_hashchange" class="log"><b>HashChange</b></pre>
+	
+    
+	<script src="../HashHistory.js"></script>
+	<script src="test.js"></script>
+	
+</body>
+</html>

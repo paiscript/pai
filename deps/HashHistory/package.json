@@ -1,0 +1,14 @@
+{
+  "author": "Christian Tellnes <christian@tellnes.no> (http://christian.tellnes.com/)",
+  "name": "HashHistory",
+  "description": "HashHistory",
+  "version": "0.2.2",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tellnes/HashHistory.git"
+  },
+  "main": "HashHistory.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {}
+}
