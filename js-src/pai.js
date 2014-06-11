@@ -1,5 +1,4 @@
-/*jshint sub: true, plusplus: false, maxerr: 50, eqeqeq: true, curly: true, forin: true, immed: true, newcap: true, noarg: true, noempty: true, onevar: true, undef: true, white: true */
-/*global PAI: true, innerShiv: false */
+/*jshint onevar: false, camelcase: false */
 
 (function (win) {
   var adpt, baselink,
@@ -72,9 +71,8 @@
   // From prototypejs
   // https://github.com/sstephenson/prototype/blob/1fb9728/src/lang/string.js#L332
   var extractAndStripScripts = (function () {
-    var ScriptFragment = '<script[^>]*>([\\S\\s]*?)<\/script>';
-      matchAll = new RegExp(ScriptFragment, 'img'),
-      matchOne = new RegExp(ScriptFragment, 'im');
+    var ScriptFragment = '<script[^>]*>([\\S\\s]*?)<\/script>'
+      , matchAll = new RegExp(ScriptFragment, 'img')
 
     return function (code, scripts) {
       code = code || '';
@@ -88,8 +86,8 @@
       }
       result += code.substring(lastIndex);
       return result;
-      };
-    }());
+    };
+  }());
 
 
 
@@ -162,14 +160,14 @@
     script = doc.createElement('script');
     script.type = 'text/javascript';
     script.async = true;
-      script.src = src;
+    script.src = src;
     script.onreadystatechange = function onreadystatechange() {
       if (this.readyState === 'loaded' || this.readyState === 'complete') {
         onload();
       }
     };
     script.onload = onload;
-      b = doc.getElementsByTagName('script')[0];
+    b = doc.getElementsByTagName('script')[0];
     b.parentNode.insertBefore(script, b);
 
     script = b = null;
@@ -292,6 +290,7 @@
     }
 
 
+    /*jshint loopfunc: true, evil: true */
     for(i = 0; i < scripts.length; i++) {
       (function(script) {
         win.setTimeout(function() {
@@ -371,12 +370,12 @@
 
   function PeriodicalUpdater(name, options) {
     if (typeof options === 'number') {
-      options = {"frequency": options};
+      options = { 'frequency': options };
     }
 
     options = adpt['extend']({
-      "frequency": 60,
-      "decay": 0
+      'frequency': 60,
+      'decay': 0
     }, options || { });
 
     this.name = name;
@@ -395,8 +394,12 @@
   PeriodicalUpdater.prototype = {
     update: function () {
       if (applyFilter('boxinterval-' + this.name + '-update', true, this)) {
+        var url = baselink +
+                  options['ajaxEndpoint'] +
+                  '?page=' + encodeURIComponent(PAI['PAGE']) +
+                  '&box=' + encodeURIComponent(this.name) ;
         adpt['ajax']({
-          url: baselink + options['ajaxEndpoint'] + '?page=' + encodeURIComponent(PAI['PAGE']) + '&box=' + encodeURIComponent(this.name),
+          url: url,
           dataType: 'json',
           type: 'POST',
           success: this.successHandler
@@ -408,14 +411,19 @@
       ajax_success(res);
 
       if (this.options['decay']) {
-        this.decay = (res['boxes'][this.name] === this.value) ? this.decay * this.options['decay'] : 1;
+        this.decay = (res['boxes'][this.name] === this.value) ?
+                      this.decay * this.options['decay'] :
+                      1;
         this.value = res['boxes'][this.name];
       }
 
       emit('boxinterval-' + this.name + '-updated', this, res);
       emit('boxinterval', this, res);
 
-      this.timer = win.setTimeout(this.updateHandler, this.decay * this.options['frequency'] * 1000);
+      this.timer = win.setTimeout(
+          this.updateHandler
+        , this.decay * this.options['frequency'] * 1000
+        );
     }
   };
 
@@ -554,6 +562,7 @@
       if (options['boxes'].hasOwnProperty(key)) {
         box = options['boxes'][key];
         if (box['interval']) {
+          /*jshint nonew: false */
           new PeriodicalUpdater(key, box['interval']);
         }
 
