@@ -19,6 +19,7 @@ if (!defined('PAI_FILEPATH_CONTENT')) { define('PAI_FILEPATH_CONTENT', PAI_FILEP
 
 require_once(PAI_FILEPATH.'inc'.DIRECTORY_SEPARATOR.'functions.php');
 require_once(PAI_FILEPATH.'inc'.DIRECTORY_SEPARATOR.'pai.php');
+require_once(PAI_FILEPATH.'inc'.DIRECTORY_SEPARATOR.'deprecated.php');
 require_once(PAI_FILEPATH.'inc'.DIRECTORY_SEPARATOR.'plugin.php');
 
 if (!class_exists('Services_JSON')) {

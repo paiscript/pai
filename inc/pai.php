@@ -130,11 +130,6 @@ function pai_js_files() {
 	return $files;
 }
 
-function pai_scripts() {
-	pai_trigger_error('pai_scripts() is deprecated. Use pai_footer() instead', E_USER_DEPRECATED, 1);
-	pai_footer();
-}
-
 function pai_head() {
 	if(pai_conf('expose_pai')) { 
 		?><meta name="generator" content="PAI/<?php echo PAI_VERSION; ?>">
