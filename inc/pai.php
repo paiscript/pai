@@ -142,7 +142,7 @@ function pai_head() {
 	pai_do_action('head');
 }
 
-function pai_footer() {
+function pai_foot() {
 
 //	echo '<script>' . file_get_contents(PAI_FILEPATH.'js-src'.DIRECTORY_SEPARATOR.'inline.js') . '</script>';
 	?>
