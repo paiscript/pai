@@ -324,6 +324,7 @@ function pai_pageInfo($key = null, $page = PAI_PAGE) {
 function pai_page($path) {
 
 	$path = strtolower(preg_replace(pai_conf('url', 'pathStripRegexp'), "", $path));
+	while ($path[0] === '/') $path = substr($path, 1);
 	if (!$path) { $path = pai_conf('url', 'rootElement'); }
 	if (substr($path, -1) == '/') { $path = substr($path, 0, -1); }
 
