@@ -21,25 +21,25 @@ if (isset($_GET['page'])) {
 
 	$pai_ajax_response['page'] = PAI_PAGE;
 
-	$content = array();
+	$boxes = array();
 
-	if (isset($GET['content'])) {
-		$name = $GET['content'];
-		$info = @pai_conf('content', $name);
+	if (isset($GET['box'])) {
+		$name = $GET['box'];
+		$info = @pai_conf('box', $name);
 		if ($info) {
-			$content[$name] = pai_content($name, true, false);
+			$boxes[$name] = pai_box($name, true, false);
 		}
 	}
 	else {
-		foreach(pai_conf('content') AS $name => $info) {
+		foreach($pai_boxes AS $name => $info) {
 			if (isset($info['interval']) && !@$info['interval']['pageChange']) { continue; }
-			$content[$name] = pai_content($name, true, false);
+			$boxes[$name] = pai_box_content($name);
 		}
 
 		$pai_ajax_response['title'] = pai_title(true);
 	}
 	
-	$pai_ajax_response['content'] = $content;
+	$pai_ajax_response['boxes'] = $boxes;
 }
 
 header("Content-type: application/json; charset=utf-8");

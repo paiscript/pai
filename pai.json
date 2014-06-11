@@ -7,8 +7,6 @@
 		"pathStripRegexp": "([^a-zA-Z0-9.\\-_/])",
 		"rootElement": "index"
 	},
-	"content": {
-	},
 	"ajax": {
 		"useSourceFiles": false,
 		"framework": "prototype",

@@ -253,9 +253,9 @@
     return applyFilter('checkElement', ret, element);
   }
 
-  function getContentElement(name) {
-    var elm = ((options['content'][name] && options['content'][name]['id']) || 'pai_content-' + name);
-    return applyFilter('contentElement', elm, name);
+  function getBoxElement(name) {
+    var elm = options['boxes'][name] && options['boxes'][name]['id'] || 'pai_box-' + name;
+    return applyFilter('boxElement', elm, name);
   }
 
   function ajax_success(res) {
@@ -265,24 +265,24 @@
       PAI['redirect'](res['redirect']['url'], res['redirect']['time'], res['redirect']['external']);
     }
 
-    if (res['content']) {
-      for (name in res['content']) {
-        if (res['content'].hasOwnProperty(name)) {
-          elm = getContentElement(name);
+    if (res['boxes']) {
+      for (name in res['boxes']) {
+        if (res['boxes'].hasOwnProperty(name)) {
+          elm = getBoxElement(name);
 
-          content = res['content'][name] || '';
+          content = res['boxes'][name] || '';
 
           // push scripts to end of scripts array
           content = extractAndStripScripts(content, scripts);
 
-          content = applyFilter('content', content, name);
-          content = applyFilter('content-' + name, content, name);
+          content = applyFilter('box', content, name);
+          content = applyFilter('box-' + name, content, name);
 
           adpt['html'](elm, content);
 
 
-          emit('contentupdate-' + name, name, elm, res);
-          emit('contentupdate', name, elm, res);
+          emit('boxupdate-' + name, name, elm, res);
+          emit('boxupdate', name, elm, res);
         }
       }
     }
@@ -383,7 +383,7 @@
     this.options = options;
 
     if (this.options['decay']) {
-      this.value = getContentElement(this.name).innerHTML;
+      this.value = getBoxElement(this.name).innerHTML;
     }
     this.decay = (this.options['decay'] || 1);
 
@@ -394,9 +394,9 @@
   }
   PeriodicalUpdater.prototype = {
     update: function () {
-      if (applyFilter('contentinterval-' + this.name + '-update', true, this)) {
+      if (applyFilter('boxinterval-' + this.name + '-update', true, this)) {
         adpt['ajax']({
-          url: baselink + options['ajaxEndpoint'] + '?page=' + encodeURIComponent(PAI['PAGE']) + '&content=' + encodeURIComponent(this.name),
+          url: baselink + options['ajaxEndpoint'] + '?page=' + encodeURIComponent(PAI['PAGE']) + '&box=' + encodeURIComponent(this.name),
           dataType: 'json',
           type: 'POST',
           success: this.successHandler
@@ -408,12 +408,12 @@
       ajax_success(res);
 
       if (this.options['decay']) {
-        this.decay = (res['content'][this.name] === this.value) ? this.decay * this.options['decay'] : 1;
-        this.value = res['content'][this.name];
+        this.decay = (res['boxes'][this.name] === this.value) ? this.decay * this.options['decay'] : 1;
+        this.value = res['boxes'][this.name];
       }
 
-      emit('contentinterval-' + this.name + '-updated', this, res);
-      emit('contentinterval', this, res);
+      emit('boxinterval-' + this.name + '-updated', this, res);
+      emit('boxinterval', this, res);
 
       this.timer = win.setTimeout(this.updateHandler, this.decay * this.options['frequency'] * 1000);
     }
@@ -524,7 +524,7 @@
     win['PAI'] = PAI;
 
     var i, l, page,
-      key, content;
+      key, box;
 
     // que
     for (i = 0, l = que.length; i < l; i++) {
@@ -550,11 +550,11 @@
 
 
     // check pages
-    for (key in options['content']) {
-      if (options['content'].hasOwnProperty(key)) {
-        content = options['content'][key];
-        if (content['interval']) {
-          new PeriodicalUpdater(key, content['interval']);
+    for (key in options['boxes']) {
+      if (options['boxes'].hasOwnProperty(key)) {
+        box = options['boxes'][key];
+        if (box['interval']) {
+          new PeriodicalUpdater(key, box['interval']);
         }
 
       }
