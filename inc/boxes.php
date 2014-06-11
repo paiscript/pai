@@ -40,11 +40,19 @@ function pai_define_box($name, $type, $options = null) {
 }
 
 function pai_box($name, $element = 'div') {
+  global $pai_boxes;
+
+  $options = @$pai_boxes[$name];
+  if (!$options) {
+    pai_trigger_error('PAI Error: `' . $name . '` box not defined', E_USER_WARNING, 1);
+    return;
+  }
+
   $content = pai_box_content($name);
 
   if ($element) {
     if (!is_string($element)) $element = 'div';
-    $id = (@$conf['id'] ? @$conf['id'] : 'pai_box-'.$name);
+    $id = (isset($options['id']) ? $options['id'] : 'pai_box-'.$name);
     $content = sprintf('<%s id="%s">%s</%s>', $element, $id, $content, $element);
   }
 
@@ -54,11 +62,8 @@ function pai_box($name, $element = 'div') {
 function pai_box_content($name) {
   global $pai_boxes;
 
-  $options = @$pai_boxes[$name];
-  if (!$options) {
-    pai_trigger_error('PAI Error: `' . $name . '` box not defined', E_USER_WARNING, 1);
-    return;
-  }
+  if (isset($pai_boxes[$name])) $options = $pai_boxes[$name];
+  else $options = array('type' => 'filter');
 
   $content = '';
 
