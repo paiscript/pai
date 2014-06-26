@@ -24,10 +24,8 @@ if (isset($_GET['page'])) {
 	$boxes = array();
 
 	if (isset($GET['box'])) {
-		$name = $GET['box'];
-		$info = @pai_conf('box', $name);
-		if ($info) {
-			$boxes[$name] = pai_box($name, true, false);
+		if (isset($pai_boxes[$GET['box']])) {
+			$boxes[$GET['box']] = pai_box_content($GET['box']);
 		}
 	}
 	else {
