@@ -24,6 +24,11 @@ function pai_define_box($name, $type, $options = null) {
   case 'function':
     if (is_callable($options)) $options = array('function' => $options);
     break;
+  case 'map':
+    if (!is_array($options['map'])) {
+      pai_trigger_error('PAI Error: `'.$fullpath.'` is not a dir', E_USER_ERROR, 1);
+    }
+    break;
   case 'dir':
     if (is_string($options)) $options = array('path' => $options);
 
@@ -76,6 +81,30 @@ function pai_box_content($name) {
       $options['function']();
     }
     $content = ob_get_clean();
+    break;
+  case 'map':
+    $file = '';
+
+    foreach((array) $options['map'] AS $f => $pages) {
+			if (in_array(PAI_PAGE, $pages)) {
+				$file = $f;
+				break;
+			}
+		}
+
+    $filepath = pai_box_get_filepath(
+        $options['path']
+      , array(
+          $file
+        , $file.'/'.(isset($options['index']) ? $options['index'] : 'index')
+        , (isset($options['default']) ? $options['default'] : false)
+        )
+      , (isset($options['extensions']) ? $options['extensions'] : array('php', 'html'))
+      );
+
+    if ($filepath) {
+      $content = pai_get_include($filepath);
+    }
     break;
   case 'dir':
     $filepath = pai_box_get_filepath(
